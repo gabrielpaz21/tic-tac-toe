@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.vieja.juego.listener.EventMause;
+import com.vieja.juego.listener.GameManager;
 
 @Component 
 public class Panel extends JPanel {
@@ -23,7 +23,7 @@ public class Panel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private EventMause eventMause;
+	private GameManager gameManager;
 	
 	@PostConstruct 
 	public void init() {
@@ -46,7 +46,7 @@ public class Panel extends JPanel {
 	
 	private void addListenerToButtons() {
 		for(java.awt.Component component : this.getComponents()) {
-			component.addMouseListener(eventMause);
+			component.addMouseListener(gameManager);
 		}
 	}
 

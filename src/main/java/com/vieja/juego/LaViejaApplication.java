@@ -1,14 +1,13 @@
 package com.vieja.juego;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vieja.juego.gui.Marco;
 
 @SpringBootApplication
-public class LaViejaApplication implements CommandLineRunner {
+public class LaViejaApplication {
 	
 	@Autowired
 	private Marco marco;
@@ -17,12 +16,6 @@ public class LaViejaApplication implements CommandLineRunner {
 		
 		System.setProperty("java.awt.headless", "false");
 		SpringApplication.run(LaViejaApplication.class, args);
-		
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		
 		
 	}
 
