@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.Clock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,68 +13,70 @@ import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.vieja.juego.tablero.Tablero;
+import com.vieja.juego.tablero.Board;
 
 @Component
 public class GameManager extends MouseAdapter{
 	
 	@Autowired
-	private Tablero tablero;
-	
+	private Board board;
+
  	private boolean turn = true;
- 	
+
  	private static final ImageIcon x = new ImageIcon("src/main/resources/x.png");
  	
  	private static final ImageIcon o = new ImageIcon("src/main/resources/o.png");
- 	
-	private static final Point point1 = new Point(0,0);
-	private static final Point point2 = new Point(162,0);
-	private static final Point point3 = new Point(324,0);
-	private static final Point point4 = new Point(0,154);
-	private static final Point point5 = new Point(162,154);
-	private static final Point point6 = new Point(324,154);
-	private static final Point point7 = new Point(0,308);
-	private static final Point point8 = new Point(162,308);
-	private static final Point point9 = new Point(324,308);
-	
+
+	private static final Point point1 = new Point(1,0);
+	private static final Point point2 = new Point(161,0);
+	private static final Point point3 = new Point(321,0);
+	private static final Point point4 = new Point(1,151);
+	private static final Point point5 = new Point(161,151);
+	private static final Point point6 = new Point(321,151);
+	private static final Point point7 = new Point(1,302);
+	private static final Point point8 = new Point(161,302);
+	private static final Point point9 = new Point(321,302);
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		JButton clicked_button = (JButton) arg0.getComponent();
-		
+		JButton clickedButton = (JButton) arg0.getComponent();
+
 		if(turn) {
-			doMovement(new MovementDTO(clicked_button,x,"x"));
+			doMovement(new MovementDTO(clickedButton,x,"x"));
 			turn = false;
 		}else {
-			doMovement(new MovementDTO(clicked_button,o,"o"));
+			doMovement(new MovementDTO(clickedButton,o,"o"));
 			turn = true;
-		}	
-		
-		if(tablero.hasFiniched()){	
-			
-			if(!tablero.isDraw()) {
-				showWhoWon(tablero.whoWon());
-			}
-			
-			showTheGameEndedInADraw();
 		}
-		
+
+		if(board.hasFinished()){
+
+			if(board.isDraw()) {
+				showTheGameEndedInADraw();
+			}else{
+				showWhoWon(board.whoWon());
+			}
+
+		}
+
 	}
-	
+
 	private void showTheGameEndedInADraw() {
 		JOptionPane.showMessageDialog(null, "El juego ha terminado en empate.");
 		System.exit(-1);
 	}
 
 	private void doMovement(MovementDTO movementDTO) {
-		JButton clicked_button = movementDTO.getClicked_button();
-		Point adjusted_point = setLocation(clicked_button.getLocation());
-		String player = movementDTO.getPlayer();
-		ImageIcon imageIcon = movementDTO.getImageIcon();
+		JButton   clickedButton = movementDTO.getClickedButton();
+		System.out.println("x,y: "+ clickedButton.getLocation());
+		Point     pointSet      = setLocation(clickedButton.getLocation());
+		String    player        = movementDTO.getPlayer();
+		ImageIcon imageIcon     = movementDTO.getImageIcon();
 		
-		clicked_button.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(clicked_button.getWidth(), clicked_button.getHeight(),Image.SCALE_SMOOTH)));
-		clicked_button.removeMouseListener(this);
+		clickedButton.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(clickedButton.getWidth(), clickedButton.getHeight(),Image.SCALE_SMOOTH)));
+		clickedButton.removeMouseListener(this);
 		
-		tablero.setPoint(adjusted_point, player);
+		board.setPoint(pointSet, player);
 	}
 	
 	private void showWhoWon(String player) {
@@ -81,34 +84,34 @@ public class GameManager extends MouseAdapter{
 		System.exit(-1);
 	}
 
-	private Point setLocation(Point old_point) {
+	private Point setLocation(Point pointNotSet) {
 		
-		Point new_point = null;
+		Point pointSet = null;
 		
-		if(old_point.equals(point1)) {
-			new_point = new Point(0,0);
-		}else if(old_point.equals(point2)) {
-			new_point = new Point(0,1);
-		}else if(old_point.equals(point3)) {
-			new_point = new Point(0,2);
-		}else if(old_point.equals(point4)) {
-			new_point = new Point(1,0);
-		}else if(old_point.equals(point5)) {
-			new_point = new Point(1,1);
-		}else if(old_point.equals(point6)) {
-			new_point = new Point(1,2);
-		}else if(old_point.equals(point7)) {
-			new_point = new Point(2,0);
-		}else if(old_point.equals(point8)) {
-			new_point = new Point(2,1);
-		}else if(old_point.equals(point9)) {
-			new_point = new Point(2,2);
+		if(pointNotSet.equals(point1)) {
+			pointSet = new Point(0,0);
+		}else if(pointNotSet.equals(point2)) {
+			pointSet = new Point(0,1);
+		}else if(pointNotSet.equals(point3)) {
+			pointSet = new Point(0,2);
+		}else if(pointNotSet.equals(point4)) {
+			pointSet = new Point(1,0);
+		}else if(pointNotSet.equals(point5)) {
+			pointSet = new Point(1,1);
+		}else if(pointNotSet.equals(point6)) {
+			pointSet = new Point(1,2);
+		}else if(pointNotSet.equals(point7)) {
+			pointSet = new Point(2,0);
+		}else if(pointNotSet.equals(point8)) {
+			pointSet = new Point(2,1);
+		}else if(pointNotSet.equals(point9)) {
+			pointSet = new Point(2,2);
 		}else {
 			JOptionPane.showMessageDialog(null, "Ha ocurrido un error.");
 			System.exit(-1);
 		}
 			
-		return new_point;
+		return pointSet;
 	}
 
 }

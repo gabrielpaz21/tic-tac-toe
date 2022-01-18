@@ -9,8 +9,8 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class MovementDTO {
-	
-	private JButton clicked_button;
+
+	private JButton clickedButton;
 	
 	private ImageIcon imageIcon;
 	

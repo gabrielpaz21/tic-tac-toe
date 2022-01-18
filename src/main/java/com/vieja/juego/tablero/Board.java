@@ -5,20 +5,12 @@ import java.awt.Point;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Tablero {
+public class Board {
 
-	private String tablero[][] = new String[3][3];
+	private static final String[][] board = new String[3][3];
 
 	public void setPoint(Point point, String player) {
-		tablero[point.x][point.y] = player;
-	}
-
-	public String getPlayer(Point point) {
-		return tablero[point.x][point.y];
-	}
-
-	public String getPlayer(int x, int y) {
-		return tablero[x][y];
+		board[point.x][point.y] = player;
 	}
 
 	private boolean checkIfPlayerWon(String player) {
@@ -32,10 +24,10 @@ public class Tablero {
 		boolean check = false;
 		int count = 0;
 
-		for (int i = 0; i < tablero.length && !check; i++) {
-			for (int j = 0; j < tablero.length; j++) {
-				if (tablero[j][i] != null) {
-					if (tablero[j][i].equalsIgnoreCase(player)) {
+		for (int i = 0; i < board.length && !check; i++) {
+			for (String[] strings : board) {
+				if (strings[i] != null) {
+					if (strings[i].equalsIgnoreCase(player)) {
 						count++;
 					}
 				}
@@ -56,10 +48,10 @@ public class Tablero {
 		boolean check = false;
 		int count = 0;
 
-		for (int i = 0; i < tablero.length && !check; i++) {
-			for (int j = 0; j < tablero.length; j++) {
-				if (tablero[i][j] != null) {
-					if (tablero[i][j].equalsIgnoreCase(player)) {
+		for (int i = 0; i < board.length && !check; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] != null) {
+					if (board[i][j].equalsIgnoreCase(player)) {
 						count++;
 					}
 				}
@@ -79,9 +71,9 @@ public class Tablero {
 
 		boolean check = false;
 
-		if (tablero[2][0] != null && tablero[1][1] != null && tablero[0][2] != null) {
-			if (tablero[0][2].equalsIgnoreCase(player) && tablero[1][1].equalsIgnoreCase(player)
-					&& tablero[2][0].equalsIgnoreCase(player)) {
+		if (board[2][0] != null && board[1][1] != null && board[0][2] != null) {
+			if (board[0][2].equalsIgnoreCase(player) && board[1][1].equalsIgnoreCase(player)
+					&& board[2][0].equalsIgnoreCase(player)) {
 				check = true;
 			}
 		}
@@ -90,9 +82,9 @@ public class Tablero {
 
 	private boolean checkBoxesDiagonallyDown(String player) {
 		boolean check = false;
-		if (tablero[0][0] != null && tablero[1][1] != null && tablero[2][2] != null) {
-			if (tablero[0][0].equalsIgnoreCase(player) && tablero[1][1].equalsIgnoreCase(player)
-					&& tablero[2][2].equalsIgnoreCase(player)) {
+		if (board[0][0] != null && board[1][1] != null && board[2][2] != null) {
+			if (board[0][0].equalsIgnoreCase(player) && board[1][1].equalsIgnoreCase(player)
+					&& board[2][2].equalsIgnoreCase(player)) {
 				check = true;
 			}
 		}
@@ -102,9 +94,9 @@ public class Tablero {
 	private boolean areAllBoxesFilled() {
 		boolean allBoxesFilled = true;
 
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero.length; j++) {
-				if (tablero[i][j] == null) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == null) {
 					allBoxesFilled = false;
 					break;
 				}
@@ -118,7 +110,7 @@ public class Tablero {
 		return areAllBoxesFilled() && !checkIfPlayerWon("x") && !checkIfPlayerWon("o");
 	}
 
-	public boolean hasFiniched() {
+	public boolean hasFinished() {
 		return 	checkIfPlayerWon("x") || checkIfPlayerWon("o") || isDraw();
 	}
 	
