@@ -71,7 +71,7 @@ public class GameManager extends MouseAdapter{
 	
 	private void showWhoWon(String player) {
 		JOptionPane.showMessageDialog(null, "Ha terminado el juego, ha ganado el jugador '" + player +"'");
-		System.exit(-1);
+		System.exit(0);
 	}
 
 }
