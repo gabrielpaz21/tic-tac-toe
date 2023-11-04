@@ -13,10 +13,12 @@ public class Frame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@SuppressWarnings("unused")
 	@Autowired
 	private Panel panel;
-	
+
+	@SuppressWarnings("unused")
 	@PostConstruct 
 	public void init() {
 		

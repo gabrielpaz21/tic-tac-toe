@@ -21,10 +21,12 @@ public class Panel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@SuppressWarnings("unused")
 	@Autowired
 	private GameManager gameManager;
-	
+
+	@SuppressWarnings("unused")
 	@PostConstruct 
 	public void init() {
 		
@@ -36,11 +38,16 @@ public class Panel extends JPanel {
 	}
 	
 	private void addButtonWithImageIcon() {
-		for(int x =0;x<9;x++) {
-			JButton new_button = new JButton();
-			ImageIcon white = new ImageIcon("src/main/resources/white.png");
-			new_button.setIcon(new ImageIcon(white.getImage().getScaledInstance(160, 151,Image.SCALE_SMOOTH)));
-			add(new_button);
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				JButton new_button = new JButton();
+				new_button.putClientProperty("row", i);
+				new_button.putClientProperty("col", j);
+				ImageIcon white = new ImageIcon("src/main/resources/white.png");
+				new_button.setIcon(new ImageIcon(white.getImage().getScaledInstance(160, 151,Image.SCALE_SMOOTH)));
+				add(new_button);
+			}
 		}
 	}
 	

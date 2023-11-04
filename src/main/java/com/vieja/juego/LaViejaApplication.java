@@ -8,7 +8,8 @@ import com.vieja.juego.gui.Frame;
 
 @SpringBootApplication
 public class LaViejaApplication {
-	
+
+	@SuppressWarnings("unused")
 	@Autowired
 	private Frame frame;
 
