@@ -3,31 +3,30 @@ package com.vieja.juego.gui;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.Serial;
 
-import javax.annotation.PostConstruct;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import com.vieja.juego.listener.GameManager;
 
 @Component 
 public class Panel extends JPanel {
-	
-	/**
-	 * 
-	 */
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private GameManager gameManager;
+	private final GameManager gameManager;
 
-	@SuppressWarnings("unused")
-	@PostConstruct 
+	public Panel(GameManager gameManager) {
+		this.gameManager = gameManager;
+	}
+
+	@PostConstruct
 	public void init() {
 		
 		setBackground(Color.white);

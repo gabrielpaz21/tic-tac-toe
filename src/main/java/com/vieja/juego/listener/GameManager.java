@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vieja.juego.tablero.Board;
@@ -17,15 +16,17 @@ import com.vieja.juego.tablero.Board;
 @Component
 public class GameManager extends MouseAdapter{
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private Board board;
+	private final Board board;
 
  	private boolean turn = true;
 
  	private static final ImageIcon x = new ImageIcon("src/main/resources/x.png");
  	
  	private static final ImageIcon o = new ImageIcon("src/main/resources/o.png");
+
+	public GameManager(Board board) {
+		this.board = board;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -52,7 +53,7 @@ public class GameManager extends MouseAdapter{
 	}
 
 	private void showTheGameEndedInADraw() {
-		JOptionPane.showMessageDialog(null, "El juego ha terminado en empate.");
+		JOptionPane.showMessageDialog(null, "The game has ended in a tie.");
 		System.exit(-1);
 	}
 
@@ -70,7 +71,7 @@ public class GameManager extends MouseAdapter{
 	}
 	
 	private void showWhoWon(String player) {
-		JOptionPane.showMessageDialog(null, "Ha terminado el juego, ha ganado el jugador '" + player +"'");
+		JOptionPane.showMessageDialog(null, "The game is over, the player has won '" + player +"'");
 		System.exit(0);
 	}
 

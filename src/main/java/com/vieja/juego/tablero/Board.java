@@ -94,14 +94,14 @@ public class Board {
 	private boolean areAllBoxesFilled() {
 		boolean allBoxesFilled = true;
 
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] == null) {
-					allBoxesFilled = false;
-					break;
-				}
-			}
-		}
+        for (String[] strings : board) {
+            for (int j = 0; j < board.length; j++) {
+                if (strings[j] == null) {
+                    allBoxesFilled = false;
+                    break;
+                }
+            }
+        }
 
 		return allBoxesFilled;
 	}
