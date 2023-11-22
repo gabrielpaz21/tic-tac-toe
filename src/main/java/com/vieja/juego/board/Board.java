@@ -1,4 +1,4 @@
-package com.vieja.juego.tablero;
+package com.vieja.juego.board;
 
 import java.awt.Point;
 
@@ -19,17 +19,15 @@ public class Board {
 				|| checkBoxesDiagonallyDown(player);
 	}
 
-	private boolean checkBoxesVertically(String player) {
-
+	private boolean checkBoxes(String player, boolean checkVertically) {
 		boolean check = false;
 		int count = 0;
 
 		for (int i = 0; i < board.length && !check; i++) {
-			for (String[] strings : board) {
-				if (strings[i] != null) {
-					if (strings[i].equalsIgnoreCase(player)) {
-						count++;
-					}
+			for (int j = 0; j < board.length; j++) {
+				String cell = checkVertically ? board[j][i] : board[i][j];
+				if (cell != null && cell.equalsIgnoreCase(player)) {
+					count++;
 				}
 			}
 
@@ -43,28 +41,12 @@ public class Board {
 		return check;
 	}
 
+	private boolean checkBoxesVertically(String player) {
+		return checkBoxes(player, true);
+	}
+
 	private boolean checkBoxesHorizontally(String player) {
-
-		boolean check = false;
-		int count = 0;
-
-		for (int i = 0; i < board.length && !check; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] != null) {
-					if (board[i][j].equalsIgnoreCase(player)) {
-						count++;
-					}
-				}
-			}
-
-			if (count < 3) {
-				count = 0;
-			} else {
-				check = true;
-			}
-		}
-
-		return check;
+		return checkBoxes(player, false);
 	}
 
 	private boolean checkBoxesDiagonallyUp(String player) {

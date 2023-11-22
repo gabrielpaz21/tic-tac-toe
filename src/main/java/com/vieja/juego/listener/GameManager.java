@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Component;
 
-import com.vieja.juego.tablero.Board;
+import com.vieja.juego.board.Board;
 
 @Component
 public class GameManager extends MouseAdapter{
@@ -54,7 +54,7 @@ public class GameManager extends MouseAdapter{
 
 	private void showTheGameEndedInADraw() {
 		JOptionPane.showMessageDialog(null, "The game has ended in a tie.");
-		System.exit(-1);
+		System.exit(0);
 	}
 
 	private void doMovement(MovementDTO movementDTO) {
